@@ -22,7 +22,7 @@
 import os
 
 import tensorflow as tf
-
+# from ..invoicenet.common.model import Model
 from ..common.model import Model
 from .data import InvoiceData
 from .model import AttendCopyParseModel

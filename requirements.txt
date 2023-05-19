@@ -1,9 +1,10 @@
 absl-py==1.4.0
 astunparse==1.6.3
-backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
+# backcall @ file:///home/sunil/anaconda3/pkgs/backcall-0.2.0-pyhd3eb1b0_0/site-packages/backcall/work
 # backcall @file:///home/sunil/anaconda3/pkgs/backcall-0.2.0-pyhd3eb1b0_0/
-# backcall==0.2.0
-backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
+backcall==0.2.0
+# backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
+backports.functools-lru-cache==1.6.4
 # backports.zoneinfo==0.2.1
 backports.zoneinfo @ file:///home/sunil/anaconda3/pkgs/backports.zoneinfo-0.2.1-py39hf3d152e_7/work
 # beautifulsoup4==4.12.2
@@ -75,7 +76,7 @@ python-dotenv==1.0.0
 pytz==2022.7.1
 pytz-deprecation-shim==0.1.0.post0
 # pywin32==306
-pywin32 @ file:///home/sunil/anaconda3/pkgs/conda-4.12.0-py39h06a4308_0/info/test/tests/data/env_metadata/envpy27win_whl/Lib/site-packages/pywin32-223.dist-info/
+pywin32 @ file:///home/sunil/anaconda3/pkgs/conda-4.12.0-py39h06a4308_0/info/test/tests/data/env_metadata/envpy27win_whl/Lib/site-packages/pywin32-223.dist-info/worl
 PyYAML==5.4.1
 pyzmq @ file:///home/sunil/anaconda3/pkgs/pyzmq-22.3.0-py39h295c915_2/work
 regex==2022.10.31

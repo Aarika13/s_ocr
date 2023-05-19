@@ -19,11 +19,12 @@
 # SOFTWARE.
 import unittest
 # import flask as Flask
+# from flask import render_template
 from tkinter import Tk
 from invoicenet.gui.trainer import Trainer
 import pytesseract
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\WalkerGA\AppData\Local\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
 #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 class TestTrainer(unittest.TestCase):
@@ -35,7 +36,10 @@ def main():
     Trainer(root)
     root.mainloop()
 
-
-
+# app = Flask(__name__)
+# @app.route('/')
+# def upload():
+#     return render_template("trainer.py")
 if __name__ == '__main__':
     main()
+    # app.run(host='0.0.0.0', port=5000, debug=True)

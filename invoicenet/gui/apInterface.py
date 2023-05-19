@@ -18,21 +18,41 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+
 import tkinter
+import shutil
+import os
+import io
+import subprocess
+import tempfile
+import PyPDF2
+import pdfplumber
+import pytesseract
+import simplejson
 from tkinter import *
-from tkinter import filedialog
-from PIL import ImageTk
+from tkinter import filedialog, messagebox
+from PIL import Image, ImageTk
+from wand.exceptions import WandException
+from tkdocviewer import *
 from pdf2image import convert_from_path
+
+from .. import FIELDS
+from ..acp.acp import AttendCopyParse
+from .custom_widgets import MenuBox, HoverButton, Logger, StoppableThread
+from .help_box import HelpBox
+from .status_box import StatusBox
+from .viewer import PDFViewer
+
 
 class apInterface(Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
         self.grid()
-        
+
         ws = self.master.winfo_screenwidth()
         hs = self.master.winfo_screenheight()
-        
+
         h = hs - 100
         w = (int(h / 1.414) + 100) * 2
         x = (ws / 2) - (w / 2)
@@ -41,10 +61,10 @@ class apInterface(Frame):
         self.master.maxsize(ws, hs)
         self.master.minsize(w, h)
         self.master.title("InvoiceNet")
-        
-        self.create_widgets(w,h)
 
-    def create_widgets(self,w,h):
+        self.create_widgets(w, h)
+
+    def create_widgets(self, w, h):
         # Create a button to select a PDF file
         self.select_button = tkinter.Button(self, text="Select PDF", command=self.select_pdf)
         self.select_button.grid(row=0, column=0)
@@ -64,21 +84,20 @@ class apInterface(Frame):
         # Create a canvas to display the PDF pages
         self.canvas = tkinter.Canvas(self, width=w, height=h)
         self.canvas.grid(row=0, column=1, rowspan=4)
-        
-        #create a scrollbar for the canvas
+
+        # create a scrollbar for the canvas
         self.scrollbar = tkinter.Scrollbar(self,
-                                        orient="vertical",
-                                        command=self.canvas.yview)
-        
+                                           orient="vertical",
+                                           command=self.canvas.yview)
+
         self.scrollbar.grid(row=0,
                             column=2,
                             rowspan=4,
                             sticky="ns")
-        
+
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
-        
-        self.canvas.bind("<Configure>",self.on_canvas_configure)
-        
+
+        self.canvas.bind("<Configure>", self.on_canvas_configure)
 
     def select_pdf(self):
         # Open a file dialog to select a PDF file
@@ -90,7 +109,6 @@ class apInterface(Frame):
         # Display the first page of the PDF
         self.current_page = 0
         self.show_page()
-       
 
     def show_page(self):
         # Get the current page image from the list and convert it to a PhotoImage
@@ -116,10 +134,6 @@ class apInterface(Frame):
         if self.current_page < len(self.images) - 1:
             self.current_page += 1
             self.show_page()
-
-    
-        
-
 
     #     self.pack(fill=BOTH, expand=True)
 

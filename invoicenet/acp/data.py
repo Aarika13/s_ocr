@@ -31,8 +31,8 @@ import numpy as np
 import tensorflow as tf
 from PIL import Image
 from decimal import Decimal
-
 from .. import FIELDS, FIELD_TYPES
+# from .. import FIELDS, FIELD_TYPES
 from ..common import util
 from ..common.data import Data, UnkDict
 

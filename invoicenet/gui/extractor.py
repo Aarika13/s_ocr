@@ -31,9 +31,8 @@ from tkinter import *
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
 from wand.exceptions import WandException
-import sys
-# from invoicenet import __init__.py
-from .. import FIELDS, FIELD_TYPES
+
+from .. import FIELDS
 from ..acp.acp import AttendCopyParse
 from .custom_widgets import MenuBox, HoverButton, Logger, StoppableThread
 from .help_box import HelpBox
@@ -265,7 +264,8 @@ class Extractor(Frame):
                     compound='center', font=("Arial", 10, "bold"), bd=0, bg=self.background,
                     highlightthickness=0, activebackground=self.background).grid(row=0, column=2, padx=10)
 
-        HoverButton(button_frame, image_path=r'widgets/labels.png', command=self._need_clarification, text='Memo/Strange',
+        HoverButton(button_frame, image_path=r'widgets/labels.png', command=self._need_clarification,
+                    text='Memo/Strange',
                     compound='center', font=("Arial", 10, "bold"), bd=0, bg=self.background,
                     highlightthickness=0, activebackground=self.background).grid(row=0, column=3, padx=10)
 
@@ -300,7 +300,7 @@ class Extractor(Frame):
         if temp is not None:
             temp.close()
 
-        self.viewer.label(labels=predictions)
+        self.logger.log(simplejson.dumps(predictions, indent=2, sort_keys=True))
         self.logger.log(simplejson.dumps(predictions, indent=2, sort_keys=True))
         self.start_button.configure(state='normal')
         self.running = False
@@ -405,9 +405,8 @@ class Extractor(Frame):
             move = self.paths[self.pathidx]
             self.pathidx += 1
             self._load_file()
-            
-            shutil.move(move, r"training/multi")
 
+            shutil.move(move, r"training/multi")
 
     def _need_clarification(self):
 
@@ -418,7 +417,7 @@ class Extractor(Frame):
             move = self.paths[self.pathidx]
             self.pathidx += 1
             self._load_file()
-            
+
             shutil.move(move, r"training/clari")
 
         # move = self.paths[self.pathidx-1]
@@ -455,7 +454,6 @@ class Extractor(Frame):
             shutil.move(move, r"training/abundance")
         # self.pathidx += 1
         # self._load_file()
-
 
     def _set_save_path(self):
         path = filedialog.askdirectory(title='Set Save Directory', initialdir=self.save_dir)
@@ -504,7 +502,7 @@ class Extractor(Frame):
         self.viewer.clear()
         path = self.paths[self.pathidx]
         filename = os.path.basename(path)
-        #with pdfplumber.open(path) as pdf:
+        # with pdfplumber.open(path) as pdf:
         try:
             if filename.split('.')[-1].lower() in ['jpg', 'png']:
                 image = Image.open(path)
